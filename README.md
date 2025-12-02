@@ -1,1 +1,2 @@
 # MobilUyg
+düzenlemeler yapıldı
