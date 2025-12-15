@@ -4,27 +4,35 @@
     "slug": "odaklanma-takibi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "image": "./assets/images/splash-icon.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "foregroundImage": "./assets/images/android-icon-foregr...png",
+      "backgroundColor": "#ffffff"
+      },
+      "package": "com.eceniz.odaklanmatakibi"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
+    "favicon": "./assets/images/favicon.png"  
+  },
     "plugins": [
-      "expo-font"
-    ]
+      "expo-font",
+      "expo-router"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b1e3a8d5-f25c-4a13-bbf2-960c3c60c63b"
+      }
+    }
   }
 }

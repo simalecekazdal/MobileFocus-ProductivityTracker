@@ -92,8 +92,8 @@ export default function ReportScreen() {
 
     const averageDistraction = sessions.length > 0 ? (totalDistractions / sessions.length).toFixed(1) : 0;
 
-    // --- PUAN HESAPLAMA (GÜNCELLENDİ) ---
-    // Dakika başına 10 Puan!
+    // --- PUAN HESAPLAMA  ---
+    // Dakika başına +10 Puan dikkat dağınıklığı -10 PUAN
     let score = (totalFocus * 10) - (totalDistractions * 10);
     if (score < 0) score = 0;
     

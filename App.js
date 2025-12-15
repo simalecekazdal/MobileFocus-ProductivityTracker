@@ -1,24 +1,23 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'; // Yeni import
+import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './src/screens/HomeScreen'; 
 import ReportScreen from './src/screens/ReportScreen';
-import WelcomeScreen from './src/screens/WelcomeScreen'; // Yeni ekran
+import WelcomeScreen from './src/screens/WelcomeScreen'; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// Eski App yapısını bir "Alt Bileşen" (MainApp) haline getirdik
 function MainAppTabs() {
-  return (
+  return (   
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#FFF0F5',
+          backgroundColor: '#FFF0F4',
           borderTopWidth: 0,
           elevation: 0,
           height: 60,
@@ -40,7 +39,6 @@ function MainAppTabs() {
   );
 }
 
-// Ana App artık Stack Navigator kullanıyor
 export default function App() {
   return (
     <NavigationContainer>

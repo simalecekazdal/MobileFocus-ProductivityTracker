@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, AppState, Alert, ScrollView, Dimensions, Platform } from 'react-native'; // Platform eklendi
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import Svg, { Circle } from 'react-native-svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, AppState, Dimensions, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import { useFocusEffect, useNavigation } from '@react-navigation/native'; 
+import Svg, { Circle } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
 const circleSize = 250;
@@ -47,28 +47,24 @@ export default function HomeScreen() {
     } catch (e) { console.error("Veri yükleme hatası:", e); }
   };
 
-  // --- ÇIKIŞ VE SİLME İŞLEMİ (ORTAK FONKSİYON) ---
   const performLogout = async () => {
     try {
-        await AsyncStorage.clear(); // Her şeyi sil
+        await AsyncStorage.clear(); 
         navigation.reset({
             index: 0,
-            routes: [{ name: 'Welcome' }], // Girişe at
+            routes: [{ name: 'Welcome' }], 
         });
     } catch (e) {
         console.error("Çıkış hatası:", e);
     }
   };
 
-  // --- PLATFORMA GÖRE ÇIKIŞ BUTONU ---
   const handleLogout = () => {
     if (Platform.OS === 'web') {
-        // WEB İÇİN BASİT ONAY (Tarayıcı bunu anlar)
         if (window.confirm("Tüm verilerin silinecek ve çıkış yapılacak. Emin misin?")) {
             performLogout();
         }
     } else {
-        // MOBİL İÇİN HAVALI UYARI
         Alert.alert(
           "Sıfırla ve Çıkış Yap 🚪",
           "Tüm verilerin (isim, raporlar, ayarlar) silinecek ve başa döneceksin. Emin misin?",
@@ -100,14 +96,30 @@ export default function HomeScreen() {
     else { setInitialTime(5); setTimeLeft(5); }
   };
 
+  // --- ZAMANLAYICI MANTIĞI ---
   useEffect(() => {
     let interval = null;
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => { setTimeLeft((time) => time - 1); }, 1000);
     } else if (timeLeft === 0 && isActive) {
-      setIsActive(false); triggerConfetti();
-      Alert.alert("MÜKEMMELSİN! 💖🎉", `Bu seansı başarıyla tamamladın!\nKategori: ${category}\nKaçamak: ${distractionCount}`, [{ text: "Harikayım 💅" }]);
-      saveSession(); 
+      setIsActive(false); 
+      triggerConfetti();
+      saveSession(); // Veriyi kaydet
+
+      // Alert penceresi ve OTOMATİK SIFIRLAMA
+      Alert.alert(
+        "MÜKEMMELSİN! 💖🎉", 
+        `Bu seansı başarıyla tamamladın!\nGeçirilen Süre: ${formatTime(initialTime)} \nKategori: ${category}\nKaçamak: ${distractionCount}`, 
+        [{ 
+            text: "Harikayım 💅", 
+            onPress: () => {
+                // "Harikayım"a basınca burası çalışacak ve ekranı temizleyecek
+                setTimeLeft(initialTime); // Süreyi başa sar
+                setDistractionCount(0);   // Hataları sıfırla
+                setShowConfetti(false);   // Konfetiyi durdur
+            }
+        }]
+      );
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
@@ -151,7 +163,7 @@ export default function HomeScreen() {
       {showConfetti && ( <ConfettiCannon count={200} origin={{x: width / 2, y: -10}} colors={['#FF69B4', '#FFB6C1', '#FFC0CB', '#FFD700', '#FFF']} fadeOut={true} /> )}
 
       <View style={styles.topBar}>
-        <View style={{flex:1}}>
+        <View style={{alignItems: 'center'}}>
             <Text style={styles.greetingText}>✨ Hoş geldin,</Text>
             <Text style={styles.userNameText}>{userName}! ✨</Text>
         </View>
@@ -206,11 +218,36 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, paddingTop: 50, backgroundColor: '#FFF0F5', alignItems: 'center' },
-  topBar: { flexDirection: 'row', width: '100%', paddingHorizontal: 20, marginBottom: 15, alignItems: 'center', justifyContent: 'space-between' },
+  
+  topBar: { 
+      flexDirection: 'row', 
+      width: '100%', 
+      paddingHorizontal: 20, 
+      marginBottom: 15, 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      position: 'relative',     
+  },
   greetingText: { fontSize: 16, color: '#D81B60', fontStyle: 'italic' },
   userNameText: { fontSize: 24, fontWeight: 'bold', color: '#D81B60' },
-  logoutButton: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 15, elevation: 3, shadowColor: "#FF69B4", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, zIndex: 10 },
+  
+  logoutButton: { 
+      position: 'absolute', 
+      right: 20,            
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      backgroundColor: '#fff', 
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 15, 
+      elevation: 3, 
+      shadowColor: "#FF69B4", 
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2, 
+      zIndex: 10, 
+  },
   logoutText: { fontSize: 10, color: '#D81B60', fontWeight: 'bold', marginTop: 2 },
+
   categoryContainer: { height: 60, marginBottom: 10 },
   scrollContainer: { paddingHorizontal: 10 },
   catButton: { paddingVertical: 10, paddingHorizontal: 20, borderRadius: 30, borderWidth: 1, borderColor: '#FFB6C1', marginHorizontal: 5, backgroundColor: '#fff', height: 45, justifyContent: 'center', shadowColor: "#FF69B4", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, elevation: 3 },

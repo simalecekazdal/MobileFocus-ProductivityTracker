@@ -1,52 +1,85 @@
-# Welcome to your Expo app 👋
+Focus Timer App (Odaklanma Zamanlayıcısı)
+Bu proje, kullanıcıların Pomodoro tekniği veya özel süreler belirleyerek görevlerine odaklanmalarını sağlamak, dikkat dağınıklıklarını kaydetmek ve verimliliklerini takip etmek amacıyla React Native (Expo) ile geliştirilmiş bir mobil odaklanma uygulamasıdır.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Projeyi Çalıştırma Rehberi
+Bu talimatlar, projeyi yerel makinenizde geliştirme modunda çalıştırmanıza yardımcı olacaktır.
 
-## Get started
+1. Ön Koşullar
+Projeyi çalıştırabilmek için sisteminizde aşağıdaki yazılımların kurulu olması gerekmektedir:
 
-1. Install dependencies
+Node.js (LTS Sürümü Önerilir): Node.js resmi web sitesinden indirilebilir.
 
-   ```bash
-   npm install
-   ```
+npm (Node.js ile birlikte gelir) veya Yarn (Tercih edilir).
 
-2. Start the app
+Expo Go Mobil Uygulaması: iOS veya Android cihazınızda test etmek için Apple App Store veya Google Play Store'dan indirilmelidir.
 
-   ```bash
-   npx expo start
-   ```
+Bir Kod Düzenleyici: (VS Code önerilir).
 
-In the output, you'll find options to open the app in a
+2. Kurulum Adımları
+A. Depoyu Klonlama
+Öncelikle projenin kaynak kodunu yerel makinenize klonlayın:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Bash
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+git clone https://github.com/simalecekazdal/MobilUyg
+cd focus-timer-app
+B. Bağımlılıkları Yükleme
+Projenin ihtiyaç duyduğu tüm paketleri (bağımlılıkları) yükleyin.
 
-## Get a fresh project
+Eğer npm kullanıyorsanız:
 
-When you're ready, run:
+Bash
 
-```bash
-npm run reset-project
-```
+npm install
+Eğer yarn kullanıyorsanız:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Bash
 
-## Learn more
+yarn install
+C. Uyumlu Paket Sürümlerini Kontrol Etme (Önemli)
+Daha önce gördüğünüz uyarıları gidermek ve en iyi uyumluluğu sağlamak için Expo'nun otomatik düzeltme komutunu çalıştırın:
 
-To learn more about developing your project with Expo, look at the following resources:
+Bash
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+npx expo install --fix
+3. Uygulamayı Başlatma
+Kurulum tamamlandıktan sonra, geliştirme sunucusunu (Metro Bundler) başlatabilirsiniz:
 
-## Join the community
+Bash
 
-Join our community of developers creating universal apps.
+npx expo start
+# veya
+npm start
+Bu komutu çalıştırdığınızda, terminalde bir QR Kod içeren bir menü açılacaktır.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+4. Geliştirme Ortamında Görüntüleme
+Uygulamayı görüntülemek için 3 seçeneğiniz vardır:
 
-düzenlemeler yapıldı
+A. Mobil Cihazda (Önerilen Yöntem)
+Akıllı telefonunuzda Expo Go uygulamasını açın.
+
+Uygulama içinde veya telefonunuzun kamerasıyla terminalde gördüğünüz QR kodu taratın.
+
+Uygulama otomatik olarak cihazınıza yüklenecek ve çalışacaktır.
+
+B. Web Tarayıcısında
+Terminal menüsünde w tuşuna basın.
+
+Uygulama, web tarayıcınızda açılacaktır. (Not: Bazı mobil özellikler web'de doğru çalışmayabilir, örneğin AppState.)
+
+C. Simülatör/Emülatörde
+Terminal menüsünde i tuşuna basarak iOS Simülatöründe veya a tuşuna basarak Android Emülatöründe uygulamayı çalıştırabilirsiniz (Bu, Xcode veya Android Studio'nun kurulu olmasını gerektirir).
+
+Temel Proje Yapısı
+Proje, temiz bir yapı sağlamak için aşağıdaki ana dosya ve klasörleri kullanır:
+
+focus-timer-app/
+├── components/           # Yeniden kullanılabilir küçük UI bileşenleri (Oluşturulursa)
+├── screens/              # Uygulamanın ana ekranları (HomeScreen, ReportScreen vb.)
+│   ├── HomeScreen.js     # Zamanlayıcı mantığı ve UI
+│   └── ReportScreen.js   # İstatistik hesaplama ve grafikler
+├── hooks/                # Özel React Hook'ları (Örn: useTimer) (Oluşturulursa)
+├── node_modules/         # Yüklü bağımlılıklar
+├── app.json              # Expo yapılandırma dosyası
+├── package.json          # Proje bağımlılıkları ve scriptler
+└── README.md             # Bu dosya
