@@ -1,85 +1,39 @@
-Focus Timer App (Odaklanma Zamanlayıcısı)
-Bu proje, kullanıcıların Pomodoro tekniği veya özel süreler belirleyerek görevlerine odaklanmalarını sağlamak, dikkat dağınıklıklarını kaydetmek ve verimliliklerini takip etmek amacıyla React Native (Expo) ile geliştirilmiş bir mobil odaklanma uygulamasıdır.
+# 🎯 Focus-Flow: Mobile Productivity & Focus Tracker
 
-Projeyi Çalıştırma Rehberi
-Bu talimatlar, projeyi yerel makinenizde geliştirme modunda çalıştırmanıza yardımcı olacaktır.
+[cite_start]Focus-Flow is a cross-platform mobile application developed with **React Native (Expo)** designed to help users maintain focus using the Pomodoro technique while tracking their digital habits[cite: 105, 109]. [cite_start]The app not only functions as a timer but also monitors distraction levels by detecting when the user leaves the application during a session[cite: 105, 158].
 
-1. Ön Koşullar
-Projeyi çalıştırabilmek için sisteminizde aşağıdaki yazılımların kurulu olması gerekmektedir:
+## ✨ Key Features
+* [cite_start]**Real-time Focus Tracking:** Monitors device `AppState` to detect and record distractions if the user exits the app during a session[cite: 158, 184].
+* [cite_start]**Layered Architecture:** Built using modern software principles with clear separation of Presentation, Application, and Data layers[cite: 111, 113].
+* [cite_start]**Interactive UI:** Features a custom dynamic circular timer built with **React Native SVG**[cite: 158, 184].
+* [cite_start]**Data Analytics:** A comprehensive reporting module that visualizes focus trends and category distributions using **Line and Pie charts**[cite: 159, 161, 162].
+* [cite_start]**Local Persistence:** Uses **AsyncStorage** to securely store user sessions and personalized settings on the device[cite: 113, 158, 184].
 
-Node.js (LTS Sürümü Önerilir): Node.js resmi web sitesinden indirilebilir.
+## 🛠️ Tech Stack
+* [cite_start]**Framework:** React Native (Expo) [cite: 109, 184]
+* [cite_start]**State Management:** React Hooks (`useState`, `useEffect`, `useCallback`) [cite: 113]
+* [cite_start]**Navigation:** React Navigation / Expo Router [cite: 113, 184]
+* [cite_start]**Graphics & Visualization:** React Native SVG, React Native Chart Kit [cite: 158, 162, 184]
+* [cite_start]**Storage:** @react-native-async-storage/async-storage [cite: 184]
 
-npm (Node.js ile birlikte gelir) veya Yarn (Tercih edilir).
+## 📸 Screenshots & Flow
+| Welcome Screen | Focus Timer | Analytics Report |
+| :---: | :---: | :---: |
+| ![Welcome](https://via.placeholder.com/200x400) | ![Timer](https://via.placeholder.com/200x400) | ![Report](https://via.placeholder.com/200x400) |
 
-Expo Go Mobil Uygulaması: iOS veya Android cihazınızda test etmek için Apple App Store veya Google Play Store'dan indirilmelidir.
+> [cite_start]**Note:** Replace the placeholder links above with your actual screenshot URLs from the `/assets` folder.
 
-Bir Kod Düzenleyici: (VS Code önerilir).
+### Business Logic Flow
+[cite_start]The application follows a strict session lifecycle to ensure accurate data tracking[cite: 164]:
+1. [cite_start]User selects a category and starts the timer[cite: 167, 168, 169].
+2. [cite_start]`AppState` listener monitors background/foreground changes[cite: 158, 177, 184].
+3. [cite_start]On session completion, data is persisted to `AsyncStorage`[cite: 158, 160, 161].
+4. [cite_start]Confetti animation triggers upon success[cite: 181, 184].
 
-2. Kurulum Adımları
-A. Depoyu Klonlama
-Öncelikle projenin kaynak kodunu yerel makinenize klonlayın:
+## 🚀 Getting Started
+1. [cite_start]Clone the repository: `git clone https://github.com/simalecekazdal/MobilUyg` [cite: 106]
+2. Install dependencies: `npm install`
+3. Run the project: `npx expo start`
 
-Bash
-
-git clone https://github.com/simalecekazdal/MobilUyg
-cd focus-timer-app
-B. Bağımlılıkları Yükleme
-Projenin ihtiyaç duyduğu tüm paketleri (bağımlılıkları) yükleyin.
-
-Eğer npm kullanıyorsanız:
-
-Bash
-
-npm install
-Eğer yarn kullanıyorsanız:
-
-Bash
-
-yarn install
-C. Uyumlu Paket Sürümlerini Kontrol Etme (Önemli)
-Daha önce gördüğünüz uyarıları gidermek ve en iyi uyumluluğu sağlamak için Expo'nun otomatik düzeltme komutunu çalıştırın:
-
-Bash
-
-npx expo install --fix
-3. Uygulamayı Başlatma
-Kurulum tamamlandıktan sonra, geliştirme sunucusunu (Metro Bundler) başlatabilirsiniz:
-
-Bash
-
-npx expo start
-# veya
-npm start
-Bu komutu çalıştırdığınızda, terminalde bir QR Kod içeren bir menü açılacaktır.
-
-4. Geliştirme Ortamında Görüntüleme
-Uygulamayı görüntülemek için 3 seçeneğiniz vardır:
-
-A. Mobil Cihazda (Önerilen Yöntem)
-Akıllı telefonunuzda Expo Go uygulamasını açın.
-
-Uygulama içinde veya telefonunuzun kamerasıyla terminalde gördüğünüz QR kodu taratın.
-
-Uygulama otomatik olarak cihazınıza yüklenecek ve çalışacaktır.
-
-B. Web Tarayıcısında
-Terminal menüsünde w tuşuna basın.
-
-Uygulama, web tarayıcınızda açılacaktır. (Not: Bazı mobil özellikler web'de doğru çalışmayabilir, örneğin AppState.)
-
-C. Simülatör/Emülatörde
-Terminal menüsünde i tuşuna basarak iOS Simülatöründe veya a tuşuna basarak Android Emülatöründe uygulamayı çalıştırabilirsiniz (Bu, Xcode veya Android Studio'nun kurulu olmasını gerektirir).
-
-Temel Proje Yapısı
-Proje, temiz bir yapı sağlamak için aşağıdaki ana dosya ve klasörleri kullanır:
-
-focus-timer-app/
-├── components/           # Yeniden kullanılabilir küçük UI bileşenleri (Oluşturulursa)
-├── screens/              # Uygulamanın ana ekranları (HomeScreen, ReportScreen vb.)
-│   ├── HomeScreen.js     # Zamanlayıcı mantığı ve UI
-│   └── ReportScreen.js   # İstatistik hesaplama ve grafikler
-├── hooks/                # Özel React Hook'ları (Örn: useTimer) (Oluşturulursa)
-├── node_modules/         # Yüklü bağımlılıklar
-├── app.json              # Expo yapılandırma dosyası
-├── package.json          # Proje bağımlılıkları ve scriptler
-└── README.md             # Bu dosya
+---
+[cite_start]Developed by **Şimal Ece Kazdal** as a Mobile Application Development project[cite: 98, 101].
